@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Transaction log{% endblock %}
+{% block content %}
+
+<h1 align=center>Outgoing Transactions</h1>
+<!--
+<div class="paragraph">
+    {% if out %}
+        <ul class="list-group">
+            {% for item in out %}
+                <li class="list-group-item" style="color:black">
+                {{item.trans_amount}} sent from {{item.account_out_name}} to {{item.account_in_number}} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        You have no outgoing transactions
+    {% endif %}
+</div>
+-->
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">Sent from</th>
+            <th scope="col">Sent to</th>
+            <th scope="col">Amount sent</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Your rows inside the table HERE: -->
+        {% for transaction in user.transactions %}
+        {% include 'includes/items_modals_log.html' %}
+            <tr>
+                <td>{{ transaction.account_out_name }}</td>
+                <td>{{ transaction.account_in_number }}</td>
+                <td>{{ transaction.trans_amount }}$</td>
+                <td>
+                    <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-ShowMessage-{{ transaction.id }}">Show message</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+
+<h2 align=center>Incomming Transactions</h2>
+<!--
+<div class="paragraph">
+    {% if inbound %}
+        <ul class="list-group">
+            {% for item in inbound %}
+                <li class="list-group-item" style="color:black">
+                {{item.trans_amount}} sent from {{item.account_out_number}} to {{item.account_in_name}} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        You have no incomming transactions
+    {% endif %}
+</div>
+-->
+
+
+<table class="table table-hover table-dark">
+    <thead>
+        <tr>
+            <!-- Your Columns HERE -->
+            <th scope="col">Sent to</th>
+            <th scope="col">Sent from</th>
+            <th scope="col">Amount sent</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Your rows inside the table HERE: -->
+        {% for transaction in user.transactions %}
+        {% include 'includes/items_modals_log.html' %}
+            <tr>
+                <td>{{transaction.account_in_name}}</td>
+                <td>{{transaction.account_out_number}}</td>
+                <td>{{transaction.trans_amount}}$</td>
+                <td>
+                    <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-ShowMessage-{{ transaction.id }}">Show message</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table> 
+
+
+</form>
+
+{% endblock %}

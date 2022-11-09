@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Kontooversikt{% endblock %}
+{% block content %}
+
+    <div class="row" style="margin-top:20px; margin-left:20px">
+        <div class="col-10">
+            <button type="button" class="btn btn-primary btn-lg"
+            onclick="window.location.href='http://127.0.0.1:5000/accounts/create_account';">Create new account</button>
+            <button type="button" class="btn btn-primary btn-lg"
+            onclick="window.location.href='http://127.0.0.1:5000/accounts/transaction';">Make a new transaction</button>
+            <button type="button" class="btn btn-primary btn-lg"
+            onclick="window.location.href='http://127.0.0.1:5000/accounts/log';">View your transaction log</button>
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <!-- Your Columns HERE -->
+                        <th scope="col">Name</th>
+                        <th scope="col">Balance</th>
+                        <th scope="col">Account number</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Your rows inside the table HERE: -->
+                    {% for account in user.accounts %}
+                    {% include 'includes/items_modals.html' %}
+                        <tr>
+                            <td>{{ account.account_name }}</td>
+                            <td>{{ account.account_balance }}$</td>
+                            <td>{{ account.account_number }}</td>
+                            <td>
+                                <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ account.id }}">More Info</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </div>
+    </div>    
+
+{% endblock %}

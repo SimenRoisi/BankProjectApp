@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Two Factor Authentication Setup</h1>
+    <p>You are almost done! Please start a one time password (OTP) app on your phone (Ex: Google Authenticator, Microsoft Authenticator etc) and scan the following QR Code with it:</p>
+    <p><img id="qrcode" src="{{ url_for('auth.qrcode') }}" style="background-color:white;"></p>
+    <p>I'm done, take me to the <a href="{{ url_for('auth.login') }}">Login</a> page!</p>
+{% endblock %}
